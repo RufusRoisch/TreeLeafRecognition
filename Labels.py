@@ -1,3 +1,4 @@
+# can be imported to other scripts to identify the tree name by their species number
 labels = {
     1: "Feldulme",
     2: "Ahorn",

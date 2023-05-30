@@ -1,5 +1,6 @@
+
 LeafPicture naming convention: l<treeClassNr>nr<pictureNumber>
-With picture Number = "001" - "075"
+With picture Number = "001" - "075" representing the picture being the n'th of this type
 And
 TreeClassNr:
 1: Ulmus carpinifolia / Feldulme
@@ -17,3 +18,10 @@ TreeClassNr:
 13: Tilia / Linde
 14: Sorbus intermedia / Schwedische Mehlbeere
 15: Fagus silvatica / Rotbuche
+
+TO-DO:
+- try adding pre-trained model
+- try different layers
+- try different image-scales (runtime vs accuracy)
+- try greyscale instead of colored?
+- try different amount of epochs
