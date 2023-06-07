@@ -1,0 +1,27 @@
+
+LeafPicture naming convention: l<treeClassNr>nr<pictureNumber>
+With picture Number = "001" - "075" representing the picture being the n'th of this type
+And
+TreeClassNr:
+1: Ulmus carpinifolia / Feldulme
+2: Acer / Ahorn
+3: Salix aurita / Ohr-Weide
+4: Quercus / Eiche
+5: Alnus incana / Grau-Erle
+6: Betula pubescens / Moor-Birke
+7: Salix alba 'Sericea' / Silber-Weide
+8: Populus tremula / Espe
+9: Ulmus glabra / Bergulme
+10: Sorbus aucuparia / Eberesche
+11: Salix sinerea / Asch-Weide
+12: Populus / Pappel
+13: Tilia / Linde
+14: Sorbus intermedia / Schwedische Mehlbeere
+15: Fagus silvatica / Rotbuche
+
+TO-DO:
+- try adding pre-trained model
+- try different layers
+- try different image-scales (runtime vs accuracy)
+- try greyscale instead of colored?
+- try different amount of epochs
