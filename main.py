@@ -63,7 +63,7 @@ def get_model():
         tf.keras.layers.MaxPooling2D(2, 2),
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation=tf.nn.relu),
-        tf.keras.layers.Dense(16, activation=tf.nn.softmax)])
+        tf.keras.layers.Dense(1, activation=tf.nn.softmax)])
 
     # compiles model
     new_model.compile(optimizer=tf.optimizers.Adam(),
@@ -95,7 +95,6 @@ if __name__ == "__main__":
     # evaluates the trained model using the test data
     print("Evaluation:")
     model.evaluate(test_images, test_labels)
-    
 
 # # Plot utility
 # def plot_graphs(history, string):
