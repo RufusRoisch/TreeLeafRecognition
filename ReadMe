@@ -25,3 +25,12 @@ TO-DO:
 - try different image-scales (runtime vs accuracy)
 - try greyscale instead of colored?
 - try different amount of epochs
+
+
+Transfer learning:
+
+1) Images need to be resized to the first layer of the pretrained model (224,224,3)
+2) No convolutions after pretrained model
+2.1) Add flattened layer with the shape of the pretrained model (4096)
+2.2) Afterwards only dense layer
+3) Iterate backwards over the layer of the pretrained model and unfreeze them one after another
