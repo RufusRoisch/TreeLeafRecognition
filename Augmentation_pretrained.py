@@ -64,7 +64,7 @@ test_folder = 'test'
 
 # Add our data-augmentation parameters to ImageDataGenerator
 
-training_images = ImageDataGenerator(rescale=1. / 255.,
+training_images = ImageDataGenerator(rescale=1.0 / 255.,
                                      rotation_range=40,
                                      width_shift_range=0.2,
                                      height_shift_range=0.2,
@@ -74,7 +74,7 @@ training_images = ImageDataGenerator(rescale=1. / 255.,
                                      )
 
 # Note that the validation data should not be augmented!
-test_images = ImageDataGenerator(rescale=1.0 / 255.)
+test_images = ImageDataGenerator(rescale=1.0 / 255)
 
 # Flow training images in batches of 20 using train_datagen generator
 train_generator = training_images.flow_from_directory(train_folder,
@@ -91,11 +91,11 @@ validation_generator = test_images.flow_from_directory(test_folder,
 # Run the model
 
 # gets model
-model = get_model()
+my_model = get_model()
 
 # fits the data to the training data
-history = model.fit(train_generator, validation_data=validation_generator,
-                    steps_per_epoch=10,
-                    epochs=5,
-                    validation_steps=5,
-                    verbose=1)
+history = my_model.fit(train_generator, validation_data=validation_generator,
+                       steps_per_epoch=10,
+                       epochs=5,
+                       validation_steps=5,
+                       verbose=1)

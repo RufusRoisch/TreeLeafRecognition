@@ -15,8 +15,8 @@ filelist = os.listdir("LeafPicsDownScaled")
 for files in filelist:
     name = files.split('.')
     img = Image.open('LeafPicsDownScaled\\'+files).convert('L')
-    img.save("LeafPicsDownScaled/" + name[0] + '_bw.tif')
-    files.close()
+    img.save("LeafPicsDownScaledBW/" + name[0] + '_bw.tif')
+    #files.close()
 
 
 
