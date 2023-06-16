@@ -2,8 +2,8 @@ import cv2
 
 
 # resulting width and height in pixels
-newWidth = 150
-newHeight = 300
+newWidth = 224
+newHeight = 224
 
 
 # loads -> downsizes -> saves single image

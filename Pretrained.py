@@ -21,7 +21,7 @@ for layer in pre_trained_model.layers:
 
 pre_trained_model.summary()
 
-last_layer = pre_trained_model.get_layer('block2_pool')
+last_layer = pre_trained_model.get_layer('block5_pool')
 last_output = last_layer.output
 
 
@@ -30,13 +30,7 @@ last_output = last_layer.output
 def get_model():
     # creates model
 
-    x = layers.Conv2D(16, (3, 3), activation='relu', input_shape=(300, 150, 3))(last_output)
-    x = layers.MaxPooling2D(2, 2)(x)
-    x = layers.Conv2D(32, (3, 3), activation='relu', input_shape=(300, 150, 3))(x)
-    x = layers.MaxPooling2D(2, 2)(x)
-    x = layers.Conv2D(64, (3, 3), activation='relu', input_shape=(300, 150, 3))(x)
-    x = layers.MaxPooling2D(2, 2)(x)
-    x = layers.Flatten()(x)
+    x = layers.Flatten()(last_output)
     x = layers.Dense(128, activation='relu')(x)
     x = layers.Dense(16, activation='softmax')(x)
 
