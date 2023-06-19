@@ -3,13 +3,13 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import numpy
-
+import matplotlib.pyplot as plt
 
 # used by get_data() to get a single picture out of /LeafPicsDownscaled
 def get_picture(tree_class_num: int, leaf_num: int):
     # constructs path to picture from tree_num and leaf_num
-    source_dir = "LeafPicsDownScaled"
-    img_name = "l" + str(tree_class_num) + "nr" + f"{leaf_num:03d}" + ".tif"
+    source_dir = "LeafPicsDownScaledBW"
+    img_name = "l" + str(tree_class_num) + "nr" + f"{leaf_num:03d}" + "_bw.tif"
     img_path = source_dir + "/" + img_name
 
     # loads the image from path as a numpy array and returns it
@@ -55,12 +55,12 @@ def get_data():
 def get_model():
     # creates model
     new_model = tf.keras.models.Sequential([
-        tf.keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(300, 150, 3)),
-        tf.keras.layers.MaxPooling2D(2, 2),
-        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(300, 150, 3)),
-        tf.keras.layers.MaxPooling2D(2, 2),
-        tf.keras.layers.Conv2D(64, (3, 3), activation='relu', input_shape=(300, 150, 3)),
-        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(300, 150,1)),
+        tf.keras.layers.MaxPooling2D(3, 3),
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(300, 150,1)),
+        tf.keras.layers.MaxPooling2D(3, 3),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu', input_shape=(300, 150,1)),
+        tf.keras.layers.MaxPooling2D(3, 3),
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation=tf.nn.relu),
         tf.keras.layers.Dense(16, activation=tf.nn.softmax)])
@@ -90,13 +90,13 @@ if __name__ == "__main__":
     model = get_model()
 
     # fits the data to the training data
-    history = model.fit(training_images, training_labels, epochs=5)
+    history = model.fit(training_images, training_labels, epochs=9)
 
     # evaluates the trained model using the test data
     print("Evaluation:")
     model.evaluate(test_images, test_labels)
 
-# # Plot utility
+# Plot utility
 # def plot_graphs(history, string):
 #   plt.plot(history.history[string])
 #   plt.xlabel("Epochs")
