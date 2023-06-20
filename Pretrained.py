@@ -11,6 +11,7 @@ from tensorflow.keras import layers
 import numpy as np
 import time
 from PIL import Image
+import matplotlib.pyplot as plt
 
 # Get the pretrained model and select an output layer
 pre_trained_model = VGG19(input_shape=(300, 150, 3),
@@ -111,3 +112,13 @@ if __name__ == "__main__":
     # evaluates the trained model using the test data
     print("Evaluation:")
     model.evaluate(test_images, test_labels)
+
+    # Plot utility
+    def plot_graphs(history, string):
+      plt.plot(history.history[string])
+      plt.xlabel("Epochs")
+      plt.ylabel(string)
+      plt.show()
+
+    # # Visualize the accuracy
+    plot_graphs(history, 'loss')

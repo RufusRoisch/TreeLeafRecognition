@@ -9,20 +9,33 @@ from PIL import Image
 import os
 import tensorflow as tf
 from skimage.color import rgb2hsv
+import cv2
 
 
+
+#os.makedirs('LeafPicsDownScaled_hsv')
 filelist = os.listdir("LeafPicsDownScaled")
 for files in filelist:
     name = files.split('.')
-    img = Image.open('LeafPicsDownScaled\\'+files).convert('L')
-    img.save("LeafPicsDownScaledBW/" + name[0] + '_bw.tif')
+    #img = Image.open('LeafPicsDownScaled\\'+files).convert('L')
+    #img.save("LeafPicsDownScaledBW/" + name[0] + '_bw.tif')
     #files.close()
-    hsv_img = rgb2hsv(files)
+        
+
+
+
+
+
+
+
+
+    # Read the image - Notice that OpenCV reads the images as BRG instead of RGB
+    img = cv2.imread('LeafPicsDownScaled\\'+files)
     
-
-
-
-
-
-
-
+    # Convert the BRG image to RGB
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    
+    # Convert the RGB image to HSV
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
+    img = Image.fromarray(img)
+    img.save("LeafPicsDownScaled_hsv/" + name[0] + '_hsv.tif')

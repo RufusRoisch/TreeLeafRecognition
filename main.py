@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # used by get_data() to get a single picture out of /LeafPicsDownscaled
 def get_picture(tree_class_num: int, leaf_num: int):
     # constructs path to picture from tree_num and leaf_num
-    source_dir = "LeafPicsDownScaledBW"
-    img_name = "l" + str(tree_class_num) + "nr" + f"{leaf_num:03d}" + "_bw.tif"
+    source_dir = "LeafPicsDownScaled"
+    img_name = "l" + str(tree_class_num) + "nr" + f"{leaf_num:03d}" + ".tif"
     img_path = source_dir + "/" + img_name
 
     # loads the image from path as a numpy array and returns it
@@ -55,11 +55,11 @@ def get_data():
 def get_model():
     # creates model
     new_model = tf.keras.models.Sequential([
-        tf.keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(300, 150,1)),
+        tf.keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(300, 150,3)),
+        tf.keras.layers.MaxPooling2D(3,3),
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(300, 150,3)),
         tf.keras.layers.MaxPooling2D(3, 3),
-        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(300, 150,1)),
-        tf.keras.layers.MaxPooling2D(3, 3),
-        tf.keras.layers.Conv2D(64, (3, 3), activation='relu', input_shape=(300, 150,1)),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu', input_shape=(300, 150,3)),
         tf.keras.layers.MaxPooling2D(3, 3),
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(128, activation=tf.nn.relu),
@@ -97,14 +97,14 @@ if __name__ == "__main__":
     model.evaluate(test_images, test_labels)
 
 # Plot utility
-# def plot_graphs(history, string):
-#   plt.plot(history.history[string])
-#   plt.xlabel("Epochs")
-#   plt.ylabel(string)
-#   plt.show()
+def plot_graphs(history, string):
+  plt.plot(history.history[string])
+  plt.xlabel("Epochs")
+  plt.ylabel(string)
+  plt.show()
 
 # # Visualize the accuracy
-# plot_graphs(history, 'accuracy')
+plot_graphs(history, 'loss')
 
 # ignore pls
 '''
@@ -121,3 +121,23 @@ plt.imshow(training_img[index])
 
     plt.show()
     '''
+    
+# acc = history.history['accuracy']
+# val_acc = history.history['val_accuracy']
+# loss = history.history['loss']
+# val_loss = history.history['val_loss']
+
+# epochs = range(len(acc))
+
+# plt.plot(epochs, acc, 'r', label='Training accuracy')
+# plt.plot(epochs, val_acc, 'b', label='Validation accuracy')
+# plt.title('Training and validation accuracy')
+
+# plt.figure()
+
+# plt.plot(epochs, loss, 'r', label='Training Loss')
+# plt.plot(epochs, val_loss, 'b', label='Validation Loss')
+# plt.title('Training and validation loss')
+# plt.legend()
+
+# plt.show()
