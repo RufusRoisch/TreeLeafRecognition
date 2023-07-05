@@ -1,3 +1,7 @@
+The aim of our project was to test many different hyperparameter settings related to image recognition. 
+Therefore, our project consists of several seperate scripts containing different ways to train the model, which can all be run individually.
+
+Data:
 
 LeafPicture naming convention: l<treeClassNr>nr<pictureNumber>
 With picture Number = "001" - "075" representing the picture being the n'th of this type
@@ -25,6 +29,21 @@ TO-DO:
 - try different image-scales (runtime vs accuracy)
 - try greyscale instead of colored?
 - try different amount of epochs
+
+Run the scripts:
+Possibly need to change directory path 
+
+1) DownScaleImages.py
+	Images need to be scaled to the same size --> Resized version of the images (150,300,3) can be found in the folder "LeafPicsDownScaled"
+2) Color.py
+	Change the color scheme of the input images (black and white/HSV)
+3) main.py
+	Contains the basemodel
+4) Augmentation.py
+	Based on the base model but uses additional data augmentation with the Image Data Generator
+5) Pretrained.py --> Best model results
+	Uses the weights of the VGG19 network architecture to train our base model
+	
 
 
 Transfer learning:

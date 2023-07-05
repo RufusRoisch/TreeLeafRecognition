@@ -14,22 +14,24 @@ import re
 # Split data and copy it to subdirectories for training and testing and each tree class
 
 # Set the path to your dataset folder containing the images
-dataset_path = 'LeafPicsDownScaled'
+dataset_path = "LeafPicsDownScaled"
 
 # Set the ratio for splitting the data (e.g., 80% for training, 20% for testing)
 train_ratio = 0.8
 test_ratio = 0.2
 
 # Set the paths for the train and test folders
-train_folder = 'train'
-test_folder = 'test'
+train_folder = "train"
+test_folder = "test"
 
 # Create train and test folders
 os.makedirs(train_folder, exist_ok=True)
 os.makedirs(test_folder, exist_ok=True)
 
 # Get the list of image files in the dataset folder
-image_files = [file for file in os.listdir(dataset_path) if file.endswith('.tif')]
+image_files = [
+    file for file in os.listdir(dataset_path) if file.endswith(".tif")
+]
 
 # Shuffle the image files randomly
 random.shuffle(image_files)
@@ -50,6 +52,7 @@ for file in train_files:
         number = match.group(1)
         train_label[file] = number
 
+# Create folder for each class within the train folder - important for the ImageDataGenerator
 output_directory = "train"
 os.makedirs(output_directory, exist_ok=True)
 for key, value in train_label.items():
@@ -58,9 +61,9 @@ for key, value in train_label.items():
         # Create a directory for the class value if it doesn't exist
         class_directory = os.path.join(output_directory, value)
         os.makedirs(class_directory, exist_ok=True)
-        
+
         # Copy the file to the corresponding class directory
-        source_path = 'train/'+key
+        source_path = "train/" + key
         destination_path = os.path.join(class_directory, key)
         shutil.copyfile(source_path, destination_path)
 
@@ -75,6 +78,7 @@ for file in test_files:
         number = match.group(1)
         test_label[file] = number
 
+# Create folder for each class within the test folder - important for the ImageDataGenerator
 output_directory = "test"
 os.makedirs(output_directory, exist_ok=True)
 for key, value in test_label.items():
@@ -83,9 +87,8 @@ for key, value in test_label.items():
         # Create a directory for the class value if it doesn't exist
         class_directory = os.path.join(output_directory, value)
         os.makedirs(class_directory, exist_ok=True)
-        
+
         # Copy the file to the corresponding class directory
-        source_path = 'test/'+key
+        source_path = "test/" + key
         destination_path = os.path.join(class_directory, key)
         shutil.copyfile(source_path, destination_path)
-        

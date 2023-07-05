@@ -14,34 +14,40 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 # Get the pretrained model and select an output layer
-pre_trained_model = VGG19(input_shape=(300, 150, 3),
-                          include_top=False,
-                          weights='imagenet')
+pre_trained_model = VGG19(
+    input_shape=(300, 150, 3), include_top=False, weights="imagenet"
+)
+# Freeze the layers
 for layer in pre_trained_model.layers:
     layer.trainable = False
 
+# Get network summary
 pre_trained_model.summary()
 
-last_layer = pre_trained_model.get_layer('block5_pool')
+# Choose layer from the network until which it will be used for the training of the base model
+last_layer = pre_trained_model.get_layer("block5_pool")
 last_output = last_layer.output
 
 
 # Model definition
 
+
 def get_model():
     # creates model
 
-    x = layers.Flatten()(last_output)
-    x = layers.Dense(128, activation='relu')(x)
-    x = layers.Dense(16, activation='softmax')(x)
+    x = layers.Flatten()(last_output)  # last layer of VGG19
+    x = layers.Dense(128, activation="relu")(x)
+    x = layers.Dense(16, activation="softmax")(x)
 
     model = Model(pre_trained_model.input, x)
     model.summary()
 
     # compiles model
-    model.compile(optimizer='Adam',
-                  loss='sparse_categorical_crossentropy',
-                  metrics=['accuracy'])
+    model.compile(
+        optimizer="Adam",
+        loss="sparse_categorical_crossentropy",
+        metrics=["accuracy"],
+    )
     return model
 
 
@@ -84,11 +90,17 @@ def get_data():
                 testing_label_list.append(tree_class)
 
             # measuring time taken for collecting data since start of get_data()
-            print(f"Processing Data... \nTook {time.time() - start_time}s so far.")
+            print(
+                f"Processing Data... \nTook {time.time() - start_time}s so far."
+            )
 
     # returns collected and divided data
-    return np.array(training_img_list), np.array(training_label_list), \
-        np.array(testing_img_list), np.array(testing_label_list)
+    return (
+        np.array(training_img_list),
+        np.array(training_label_list),
+        np.array(testing_img_list),
+        np.array(testing_label_list),
+    )
 
 
 # Run the model
@@ -96,7 +108,9 @@ def get_data():
 if __name__ == "__main__":
     # get training and test data
     training_images, training_labels, test_images, test_labels = get_data()
-    print(f"Training-Data-Size: {len(training_images)} \nTest-Data-Size: {len(test_images)}")
+    print(
+        f"Training-Data-Size: {len(training_images)} \nTest-Data-Size: {len(test_images)}"
+    )
 
     # turn values from 0-255 in images to a value from 0.0 - 1.0
     # which is easier for the neural network to understand
@@ -115,10 +129,10 @@ if __name__ == "__main__":
 
     # Plot utility
     def plot_graphs(history, string):
-      plt.plot(history.history[string])
-      plt.xlabel("Epochs")
-      plt.ylabel(string)
-      plt.show()
+        plt.plot(history.history[string])
+        plt.xlabel("Epochs")
+        plt.ylabel(string)
+        plt.show()
 
     # # Visualize the accuracy
-    plot_graphs(history, 'loss')
+    plot_graphs(history, "loss")
